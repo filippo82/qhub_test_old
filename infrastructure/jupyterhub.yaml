@@ -139,7 +139,7 @@ hub:
     02-themeing: |
       c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
       c.JupyterHub.template_vars = {
-          'pangeo_hub_title': 'QHub - qhub-testing-aws2','pangeo_hub_subtitle': 'Autoscaling Compute Environment on AWS',
+          'pangeo_hub_title': 'QHub - qhub-testing-aws2','pangeo_hub_subtitle': 'Autoscaling Compute Environment on AWS - Hello!',
           
           'pangeo_welcome': """Welcome to jupyter.qhub.amstelhack2020.site. It is maintained by <a href="http://quansight.com">Quansight staff</a>. The hub's configuration is stored in a github repository based on <a href="https://github.com/Quansight/qhub/">https://github.com/Quansight/qhub/</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/Quansight/qhub/issues">github issue tracker</a>."""
       }
