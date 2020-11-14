@@ -1,0 +1,38 @@
+name: "qhub auto update"
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "qhub-config.yaml"
+
+jobs:
+  build:
+    name: qhub
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Image'
+        uses: actions/checkout@master
+        with:
+          token: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install qhub
+        run: |
+          pip install qhub==0.1.20
+      - name: Render Changes to Template
+        run: |
+          qhub render -c qhub-config.yaml -o ./ -f
+      - name: Push Changes
+        run: |
+          git config user.email "qhub@quansight.com"
+          git config user.name "github action"
+          git add .
+          # only commit and push if we have changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "${COMMIT_MSG}"; git push origin master)
+        env:
+          COMMIT_MSG: |
+            qhub-config.yaml automated commit: ${{ github.sha }}
